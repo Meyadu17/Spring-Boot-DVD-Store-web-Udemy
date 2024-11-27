@@ -4,12 +4,12 @@ import fr.apside.DVDStore.core.entity.Movie;
 import fr.apside.DVDStore.core.service.MovieServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
+//@RequestMapping("/dvdstore")
 public class HomeController {
 	@Autowired
 	private MovieServiceInterface movieServiceInterface;
@@ -22,9 +22,15 @@ public class HomeController {
 		this.movieServiceInterface = movieService;
 	}
 
-	@RequestMapping("/dvdstore-home")
-	public @ModelAttribute("movies") List<Movie> displayHome(){
-		return movieServiceInterface.getMovieList();
+	@GetMapping("dvdstore-home")
+	public String displayHome(Model model){
+		model.addAttribute("movies", getMovieService().getMovieList());
+		return "dvdstore-home";
+	}
+
+	@GetMapping("/add-movie-form")
+	public void displayMovieForm(@ModelAttribute Movie movie){
+		// Pas besoin de retourner un String, la vue sera déterminée par l'URL
 	}
 
 }
