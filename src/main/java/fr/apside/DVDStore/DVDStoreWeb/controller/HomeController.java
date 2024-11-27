@@ -1,6 +1,6 @@
 package fr.apside.DVDStore.DVDStoreWeb.controller;
 
-import fr.apside.DVDStore.core.entity.Movie;
+import fr.apside.DVDStore.DVDStoreWeb.form.MovieForm;
 import fr.apside.DVDStore.core.service.MovieServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/add-movie-form")
-	public String displayMovieForm(@ModelAttribute Movie movie){
+	public String displayMovieForm(@ModelAttribute MovieForm movie){
 		return "add-movie-form"; // Changement ici pour retourner le nom du template
 	}
 

@@ -1,9 +1,12 @@
 package fr.apside.DVDStore.DVDStoreWeb.controller;
 
+import fr.apside.DVDStore.DVDStoreWeb.form.MovieForm;
 import fr.apside.DVDStore.core.entity.Movie;
 import fr.apside.DVDStore.core.service.MovieServiceInterface;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +29,18 @@ public class MovieController {
 	}
 
 	@PostMapping
-	public String addMovie(@ModelAttribute Movie movie){
+	public String addMovie(@Valid @ModelAttribute MovieForm movieForm, BindingResult bindingResult){
+		if(bindingResult.hasErrors()){
+			System.out.println(bindingResult.getAllErrors());
+			return "add-movie-form";
+		}
+
+		Movie movie = new Movie();
+
+		movie.setTitle(movieForm.getTitle());
+		movie.setGenre(movieForm.getGenre());
+		movie.setDescription(movieForm.getDescription());
+
 		movieServiceInterface.registerMovie(movie);
 		return "movie-added";
 	}
