@@ -7,9 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//@RequestMapping("/dvdstore")
+@RequestMapping("/dvdstore")
 public class HomeController {
 	@Autowired
 	private MovieServiceInterface movieServiceInterface;
@@ -22,15 +23,15 @@ public class HomeController {
 		this.movieServiceInterface = movieService;
 	}
 
-	@GetMapping("dvdstore-home")
+	@GetMapping("/home")
 	public String displayHome(Model model){
 		model.addAttribute("movies", getMovieService().getMovieList());
 		return "dvdstore-home";
 	}
 
 	@GetMapping("/add-movie-form")
-	public void displayMovieForm(@ModelAttribute Movie movie){
-		// Pas besoin de retourner un String, la vue sera déterminée par l'URL
+	public String displayMovieForm(@ModelAttribute Movie movie){
+		return "add-movie-form"; // Changement ici pour retourner le nom du template
 	}
 
 }
