@@ -23,17 +23,23 @@ public class MovieResource {
 
 	@GetMapping
 	public List<Movie> list(){
+
 		return movieServiceInterface.getMovieList();
+
 	}
 
 	@GetMapping("/{id}")
 	public Movie get(@PathVariable("id") long id){
+
 		return movieServiceInterface.getMovieById(id);
+
 	}
 
 	@PostMapping
 	public Movie add(@RequestBody Movie movie){
+
 		return movieServiceInterface.addMovie(movie);
+
 	}
 
 }

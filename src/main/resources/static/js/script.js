@@ -1,12 +1,12 @@
-fetch('list-movies')
+fetch('/webui/movie')
     .then(res => res.json())
     .then(res => {
-        var invoiceListNode = document.getElementById('movie-list');
-        invoiceListNode.innerHTML = "";
+        var movieListNode = document.getElementById('movie-list');
+        movieListNode.innerHTML = "";
 
         var table = document.createElement("table");
-        table.setAttribute("border","1");
-        invoiceListNode.appendChild(table);
+        table.setAttribute("border", "1");
+        movieListNode.appendChild(table);
 
         res.forEach(movie => {
 
@@ -25,7 +25,7 @@ fetch('list-movies')
 
             td = document.createElement("td");
             var button = document.createElement("button");
-            button.setAttribute("type","button");
+            button.setAttribute("type", "button");
             button.onclick = function() {
                 showDetail(`${movie.id}`);
             };
@@ -33,15 +33,12 @@ fetch('list-movies')
             button.appendChild(text);
             td.appendChild(button);
             tr.appendChild(td);
-
-
         });
 
     });
 
-
 function showDetail(id){
-    fetch("movie/"+id)
+    fetch("/webui/movie/"+id)
         .then(res => res.json())
         .then(res => {
             var invoiceDetailNode = document.getElementById('movie-detail');
