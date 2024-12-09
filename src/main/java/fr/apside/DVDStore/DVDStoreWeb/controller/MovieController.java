@@ -6,9 +6,13 @@ import fr.apside.DVDStore.core.service.MovieServiceInterface;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/movie")
@@ -26,6 +30,12 @@ public class MovieController {
         model.addAttribute("movie",movieService.getMovieById(id));
         return "movie-details";
     }*/
+
+	@GetMapping("/list-movies")
+	@ResponseBody
+	public List<Movie> getMovies() {
+		return movieServiceInterface.getMovieList();
+	}
 
 	@PostMapping("/create")
 	public String createMovie(@Valid @ModelAttribute MovieForm movieForm, BindingResult bindingResult){
